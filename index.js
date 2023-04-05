@@ -69,13 +69,10 @@ app.put("/jokes/:id", async (req, resp) => {
         resp.status(400).send("Missing the replacement content of the task");
         return;
     }
-
-    const updated = await Joke.update({tags, joke: content}, {where: {id}});
-    console.log(updated)
+    const updated = await Joke.update({ tags, joke: content }, { where: { id } });
     if (updated[0] === 0) {
         // The joke doesn't exist, so create it instead
-        await Joke.create({tags, joke: content});
-        console.log("created")
+        await Joke.create({ tags, joke: content });
         resp.sendStatus(201);
         return;
     }
